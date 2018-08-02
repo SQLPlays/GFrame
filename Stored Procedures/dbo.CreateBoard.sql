@@ -3,19 +3,28 @@ GO
 SET ANSI_NULLS ON
 GO
 
-CREATE PROCEDURE [dbo].[CreateBoard] @GameID INT,
+CREATE PROCEDURE [dbo].[CreateBoard] @GameInstanceID INT,
 							@Width INT,
 							@Height INT
 AS
 BEGIN
 
---	INSERT INTO GameBoard (GameID, Colour, Active, PlayerID, Label, Above,
---				Below, ToLeft, ToRight, AboveLeft, AboveRight, BelowLeft, BelowRight)
-	SELECT TOP (@Width * @Height) @GameID,
+	INSERT INTO GameBoard (ID, GameInstanceID, Colour, Active, PlayerID, Label, [Row], [Column],
+					Above, Below, ToLeft, ToRight, AboveLeft, AboveRight, BelowLeft, BelowRight)
+	SELECT TOP (@Width * @Height) Number,
+								@GameInstanceID,
 								'FFFFFF',
 								1,
 								0,
 								'',
+								CASE
+									WHEN (Number % @Width) <> 0 THEN (Number / @Width) + 1
+									ELSE (Number / @Width)
+								END,
+								CASE
+									WHEN (Number % @Width) <> 0 THEN (Number % @Width)
+									ELSE @Width
+								END,
 								CASE
 									WHEN (Number - @Width) > 0 THEN (Number - @Width)
 									ELSE 0
@@ -52,7 +61,6 @@ BEGIN
 
 	FROM Numbers
 	ORDER BY Number ASC
-	
 
 END
 GO
