@@ -9,7 +9,7 @@ CREATE PROCEDURE [dbo].[CreateBoard] @GameInstanceID INT,
 AS
 BEGIN
 
-	INSERT INTO GameBoard (ID, GameInstanceID, Colour, Active, PlayerID, Label, [Row], [Column],
+	INSERT INTO GameBoard (ID, GameInstanceID, Colour, Active, PlayerID, Label, [Status], [Row], [Column],
 					Above, Below, ToLeft, ToRight, AboveLeft, AboveRight, BelowLeft, BelowRight)
 	SELECT TOP (@Width * @Height) Number,
 								@GameInstanceID,
@@ -17,6 +17,7 @@ BEGIN
 								1,
 								0,
 								'',
+								0,
 								CASE
 									WHEN (Number % @Width) <> 0 THEN (Number / @Width) + 1
 									ELSE (Number / @Width)

@@ -6,6 +6,7 @@ CREATE TABLE [dbo].[GameBoard]
 [Active] [bit] NULL,
 [PlayerID] [int] NULL,
 [Label] [nvarchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Status] [int] NULL,
 [Row] [int] NULL,
 [Column] [int] NULL,
 [Above] [int] NULL,
@@ -15,6 +16,10 @@ CREATE TABLE [dbo].[GameBoard]
 [AboveLeft] [int] NULL,
 [AboveRight] [int] NULL,
 [BelowLeft] [int] NULL,
-[BelowRight] [int] NULL
+[BelowRight] [int] NULL,
+[WallUp] [bit] NULL,
+[WallDown] [bit] NULL,
+[WallLeft] [bit] NULL,
+[WallRight] [bit] NULL
 ) ON [PRIMARY]
 GO
